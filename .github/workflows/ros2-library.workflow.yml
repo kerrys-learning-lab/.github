@@ -1,6 +1,21 @@
 name: ROS2 Library workflow
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      actor_name:
+        description: |
+          Name of the entity performing the action.
+          Repository modifications (created tags, CHANGELOG.md, etc) will be
+          attributed to this entity.
+        required: true
+      actor_token:
+        description: |
+          GITHUB_TOKEN or PAT authorized to make changes to the repository
+        required: true
+      actor_email:
+        description: Email address of the given actor (i.e., used in 'git config')
+        required: true
 
 env:
   REGISTRY: ghcr.io
@@ -12,8 +27,8 @@ jobs:
     container:
       image: ghcr.io/kerrys-learning-lab/devcontainer-ros2:latest
       credentials:
-        username: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
-        password: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+        username: ${{ secrets.actor_name }}
+        password: ${{ secrets.actor_token }}
       volumes:
         - ${GITHUB_WORKSPACE}:/workspace
 
