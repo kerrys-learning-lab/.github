@@ -51,7 +51,9 @@ jobs:
       - name: Build the ROS2 library
         run: |
           echo $(pwd)
-          ls -alF
+          export LIBRARY_NAME=$(basename $(pwd) | tr '[:upper:]' '[:lower:]')
+          echo ${LIBRARY_NAME}
+          source /opt/ros/humble/setup.bash
           colcon build
 
   bump-version:
