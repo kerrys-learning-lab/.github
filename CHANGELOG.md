@@ -1,3 +1,9 @@
+## v1.1.0 (2022-09-17)
+
+### Feat
+
+- Workflow for ROS2 libraries (#5)
+
 ## v1.0.2 (2022-09-17)
 
 ### Fix
