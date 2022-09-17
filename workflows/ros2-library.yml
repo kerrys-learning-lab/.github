@@ -1,0 +1,70 @@
+name: ROS2 Library workflow
+
+on:
+  push:
+
+env:
+  REGISTRY: ghcr.io
+  LIBRARY_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-22.04
+    container:
+      image: ghcr.io/kerrys-learning-lab/devcontainer-ros2:latest
+      credentials:
+        username: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
+        password: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+      volumes:
+        - ${GITHUB_WORKSPACE}:/workspace
+          
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern=v{{version}}
+            type=sha,prefix=${{ github.ref_name }}--{{ date 'YYYY-MM-DD' }}--
+            type=raw,value=latest,enable=${{ startsWith( github.ref, 'refs/tags/v') }}
+
+     - name: Build the ROS2 library
+       run: |
+         colcon build
+
+  bump-version:
+    needs: build-and-push-image
+    if: github.ref_protected && !startsWith(github.event.head_commit.message, 'bump:')
+    runs-on: ubuntu-latest
+    name: "Bump version and create changelog with commitizen"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Pull custom bump-version-action
+        uses: actions/checkout@v3
+        with:
+          repository: kerrys-learning-lab/bump-version-action
+          path: bump-version-action
+          ref: refs/heads/main
+          token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+      - name: Update version and changelog
+        id: cz
+        uses: ./bump-version-action
+        with:
+          github_actor: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
+          github_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+          git_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
+          git_email: ${{ secrets.KERRYS_LEARNING_LAB_EMAIL }}
+      - name: Print Version
+        run: echo "${{ steps.cz.outputs.version }}"
