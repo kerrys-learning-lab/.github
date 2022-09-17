@@ -19,7 +19,7 @@ on:
 
 jobs:
   bump-version:
-    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@initial-development
+    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
     secrets:
       actor_name: ${{ secrets.actor_name }}
       actor_token: ${{ secrets.actor_token }}
