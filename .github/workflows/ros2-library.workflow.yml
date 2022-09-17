@@ -50,8 +50,9 @@ jobs:
 
       - name: Build the ROS2 library
         run: |
-          echo ${{ github.workspace }}
-          cd ${{ github.workspace }}
+          echo ${HOME}
+          cd ${HOME}
+          ls -alF
           colcon build
 
   bump-version:
