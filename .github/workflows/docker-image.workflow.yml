@@ -2,35 +2,32 @@ name: Docker image workflow
 
 on:
   workflow_call:
-    inputs:
+    secrets:
       actor_name:
         description: |
           Name of the entity performing the action.
           Repository modifications (created tags, CHANGELOG.md, etc) will be
           attributed to this entity.
-        type: string
         required: true
       actor_token:
         description: |
           GITHUB_TOKEN or PAT authorized to make changes to the repository
-        type: string
         required: true
       actor_email:
         description: Email address of the given actor (i.e., used in 'git config')
-        type: string
         required: true
 
 jobs:
   build-and-push-image:
     uses: kerrys-learning-lab/.github/.github/workflows/.build-docker-image.yml@initial-development
-    with:
-      actor_name: ${{ inputs.actor_name }}
-      actor_token: ${{ inputs.actor_token }}
+    secrets:
+      actor_name: ${{ secrets.actor_name }}
+      actor_token: ${{ secrets.actor_token }}
 
   bump-version:
     uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@initial-development
     needs: build-and-push-image
-    with:
-      actor_name: ${{ inputs.actor_name }}
-      actor_token: ${{ inputs.actor_token }}
-      actor_email: ${{ inputs.actor_email }}
+    secrets:
+      actor_name: ${{ secrets.actor_name }}
+      actor_token: ${{ secrets.actor_token }}
+      actor_email: ${{ secrets.actor_email }}

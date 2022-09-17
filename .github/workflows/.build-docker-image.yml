@@ -1,17 +1,15 @@
 on:
   workflow_call:
-    inputs:
+    secrets:
       actor_name:
         description: |
           Name of the entity performing the action.
           Repository modifications (created tags, CHANGELOG.md, etc) will be
           attributed to this entity.
-        type: string
         required: true
       actor_token:
         description: |
           GITHUB_TOKEN or PAT authorized to make changes to the repository
-        type: string
         required: true
 
 env:
@@ -33,8 +31,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ inputs.actor_name }}
-          password: ${{ inputs.actor_token }}
+          username: ${{ secrets.actor_name }}
+          password: ${{ secrets.actor_token }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
