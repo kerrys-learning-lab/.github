@@ -1,3 +1,9 @@
+## v1.1.1 (2022-09-17)
+
+### Fix
+
+- Update release name to github.ref_name (#6)
+
 ## v1.1.0 (2022-09-17)
 
 ### Feat
