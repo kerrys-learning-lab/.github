@@ -1,6 +1,7 @@
 name: No-build workflow
 
 on:
+  push:
   workflow_call:
     secrets:
       actor_name:
