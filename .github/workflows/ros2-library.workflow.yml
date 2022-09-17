@@ -40,7 +40,7 @@ jobs:
     #      colcon build
 
   bump-version:
-    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@initial-development
+    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
     needs: build-and-publish-library
     secrets:
       actor_name: ${{ secrets.actor_name }}
