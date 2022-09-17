@@ -2,6 +2,15 @@ name: ROS2 Library workflow
 
 on:
   workflow_call:
+    inputs:
+      library_name:
+        description: |
+          Name of the library artifact.
+          Upon completion of the build step, this library should be found in
+          'instal/${library_name}'.  Subsequently, the uploaded library artifact
+          will be ${libary_name}.tar.gz
+        type: string
+        required: true
     secrets:
       actor_name:
         description: |
@@ -38,16 +47,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Find ROS2 libraries
-        shell: /bin/bash --noprofile --norc -eo pipefail {0}
-        id: find_libraries
-        run: |
-          export ROS2_LIBRARIES=$(
-            xmllint --xpath '//package/name/text()' $(find src -name package.xml)
-          )
-          echo "ROS2_LIBRARIES=${ROS2_LIBRARIES}"
-          echo "::set-output name=ROS2_LIBRARIES::${ROS2_LIBRARIES}"
-
       - name: Build the ROS2 libraries
         shell: /bin/bash --noprofile --norc -eo pipefail {0}
         run: |
@@ -59,15 +58,14 @@ jobs:
         run: |
           cd install
           ls -alF
-          for library in ${{ steps.find_libraries.output.ROS2_LIBRARIES }}; do
-            tar czf ${library}.tar.gz ${library}
-          done
+          tar czf ${{ inputs.library }}.tar.gz ${{ inputs.library }}
           ls -alF
 
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: install/*.tar.gz
+          path: install/${{ inputs.library }}.tar.gz
+          if-no-files-found: error
 
   bump-version:
     uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
