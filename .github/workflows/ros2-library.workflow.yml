@@ -38,23 +38,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Extract metadata (tags, labels)
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern=v{{version}}
-            type=sha,prefix=${{ github.ref_name }}--{{ date 'YYYY-MM-DD' }}--
-            type=raw,value=latest,enable=${{ startsWith( github.ref, 'refs/tags/v') }}
-
       - name: Find ROS2 libraries
         shell: /bin/bash --noprofile --norc -eo pipefail {0}
         id: find_libraries
         run: |
-          echo "::set-output name=ROS2_LIBRARIES::$(
+          export ROS2_LIBRARIES=$(
             xmllint --xpath '//package/name/text()' $(find src -name package.xml)
-          )"
+          )
+          echo "ROS2_LIBRARIES=${ROS2_LIBRARIES}"
+          echo "::set-output name=ROS2_LIBRARIES::${ROS2_LIBRARIES}"
 
       - name: Build the ROS2 libraries
         shell: /bin/bash --noprofile --norc -eo pipefail {0}
@@ -66,9 +58,11 @@ jobs:
         shell: /bin/bash --noprofile --norc -eo pipefail {0}
         run: |
           cd install
+          ls -alF
           for library in ${{ steps.find_libraries.output.ROS2_LIBRARIES }}; do
             tar czf ${library}.tar.gz ${library}
           done
+          ls -alF
 
       - uses: actions/upload-artifact@v3
         with:
