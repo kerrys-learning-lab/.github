@@ -1,25 +1,16 @@
 name: Docker image workflow
 
-on:
-  workflow_call:
-    inputs:
-      workflow_ref:
-        description: |
-          The git ref (branch, tag) of the workflow to be used
-          Defaults to `main`.
-        default: main
-        type: string
-        required: false
+on: workflow_call
 
 jobs:
   build-and-push-image:
-    uses: kerrys-learning-lab/.github/workflows/.build-docker-image.yml@${{ inputs.workflow_ref }}
+    uses: kerrys-learning-lab/.github/workflows/.build-docker-image.yml@main
     secrets:
       actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
       actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
 
   bump-version:
-    uses: kerrys-learning-lab/.github/workflows/.bump-version.yml@${{ inputs.workflow_ref }}
+    uses: kerrys-learning-lab/.github/workflows/.bump-version.yml@main
     needs: build-and-push-image
     secrets:
       actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
