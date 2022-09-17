@@ -1,0 +1,45 @@
+on:
+  workflow_call:
+    secrets:
+      actor_name:
+        description: |
+          Name of the entity performing the action.
+          Repository modifications (created tags, CHANGELOG.md, etc) will be
+          attributed to this entity.
+        required: true
+      actor_token:
+        description: |
+          GITHUB_TOKEN or PAT authorized to make changes to the repository
+        required: true
+      actor_email:
+        description: Email address of the given actor (i.e., used in 'git config')
+        required: true
+
+jobs:
+  bump-version:
+    if: github.ref_protected && !startsWith(github.event.head_commit.message, 'bump:')
+    runs-on: ubuntu-latest
+    name: "Bump version and create changelog with commitizen"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.actor_token }}"
+      - name: Pull custom bump-version-action
+        uses: actions/checkout@v3
+        with:
+          repository: kerrys-learning-lab/bump-version-action
+          path: bump-version-action
+          ref: refs/heads/main
+          token: ${{ secrets.actor_token }}
+      - name: Update version and changelog
+        id: cz
+        uses: ./bump-version-action
+        with:
+          github_actor: ${{ secrets.actor_name }}
+          github_token: ${{ secrets.actor_token }}
+          git_name: ${{ secrets.actor_name }}
+          git_email: ${{ secrets.actor_email }}
+      - name: Print Version
+        run: echo "${{ steps.cz.outputs.version }}"
