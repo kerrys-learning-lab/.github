@@ -58,13 +58,13 @@ jobs:
         run: |
           cd install
           ls -alF
-          tar czf ${{ inputs.library }}.tar.gz ${{ inputs.library }}
+          tar czf ${{ inputs.library_name }}.tar.gz ${{ inputs.library_name }}
           ls -alF
 
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: install/${{ inputs.library }}.tar.gz
+          path: install/${{ inputs.library_name }}.tar.gz
           if-no-files-found: error
 
   bump-version:
