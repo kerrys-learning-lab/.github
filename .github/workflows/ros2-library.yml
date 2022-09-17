@@ -1,7 +1,7 @@
 name: ROS2 Library workflow
 
 on:
-  push:
+  workflow_call:
 
 env:
   REGISTRY: ghcr.io
