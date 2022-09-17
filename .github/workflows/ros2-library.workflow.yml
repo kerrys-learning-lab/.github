@@ -30,7 +30,7 @@ jobs:
         username: ${{ secrets.actor_name }}
         password: ${{ secrets.actor_token }}
       volumes:
-        - ${GITHUB_WORKSPACE}:/workspace
+        - .:/workspace
 
     permissions:
       contents: read
