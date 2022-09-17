@@ -50,8 +50,7 @@ jobs:
 
       - name: Build the ROS2 library
         run: |
-          echo ${HOME}
-          cd ${HOME}
+          echo $(pwd)
           ls -alF
           colcon build
 
