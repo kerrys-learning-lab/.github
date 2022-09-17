@@ -1,8 +1,22 @@
 name: Docker image workflow
 
 on:
-  - push
-  - workflow_call
+  push:
+  workflow_call:
+    secrets:
+      actor_name:
+        description: |
+          Name of the entity performing the action.
+          Repository modifications (created tags, CHANGELOG.md, etc) will be
+          attributed to this entity.
+        required: true
+      actor_token:
+        description: |
+          GITHUB_TOKEN or PAT authorized to make changes to the repository
+        required: true
+      actor_email:
+        description: Email address of the given actor (i.e., used in 'git config')
+        required: true
 
 jobs:
   build-and-push-image:
