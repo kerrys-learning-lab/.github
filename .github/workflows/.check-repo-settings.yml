@@ -1,0 +1,23 @@
+on:
+  workflow_call:
+    secrets:
+      actor_token:
+        description: |
+          GITHUB_TOKEN or PAT authorized to make changes to the repository
+        required: true
+
+jobs:
+  check-repo-settings:
+    if: github.ref_protected
+    runs-on: ubuntu-latest
+    name: "Verify repository settings"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.actor_token }}"
+      - name: Check/assert repository settings
+        uses: kerrys-learning-lab/check-repo-settings-action@main
+        with:
+          github_token: ${{ secrets.actor_token }}

@@ -18,6 +18,10 @@ on:
         required: true
 
 jobs:
+  check-repo-settings:
+    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@main
+    secrets:
+      actor_token: ${{ secrets.actor_token }}
   bump-version:
     uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
     secrets:
