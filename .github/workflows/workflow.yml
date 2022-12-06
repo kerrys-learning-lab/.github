@@ -3,7 +3,7 @@ name: No-build workflow
 on: [push, workflow_dispatch]
 
 jobs:
-  image-workflow:
+  ref-no-build-workflow:
     uses: kerrys-learning-lab/.github/.github/workflows/no-build.workflow.yml@main
     secrets:
       actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
