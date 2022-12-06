@@ -16,7 +16,14 @@ jobs:
         with:
           fetch-depth: 0
           token: "${{ secrets.actor_token }}"
+      - name: Pull custom check-repo-settings-action
+        uses: actions/checkout@v3
+        with:
+          repository: kerrys-learning-lab/check-repo-settings-action
+          path: check-repo-settings-action
+          ref: refs/heads/initial-development
+          token: ${{ secrets.actor_token }}
       - name: Check/assert repository settings
-        uses: kerrys-learning-lab/check-repo-settings-action@initial-development
+        uses: ./check-repo-settings-action
         with:
           github_token: ${{ secrets.actor_token }}
