@@ -8,7 +8,6 @@ on:
 
 jobs:
   check-repo-settings:
-    if: github.ref_protected
     runs-on: ubuntu-latest
     name: "Verify repository settings"
     steps:
