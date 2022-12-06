@@ -1,3 +1,9 @@
+## v1.1.3 (2022-12-06)
+
+### Fix
+
+- Change check-repository-settings-action ref (#8)
+
 ## v1.1.2 (2022-12-06)
 
 ### Fix
