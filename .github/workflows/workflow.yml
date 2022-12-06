@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   ref-no-build-workflow:
-    uses: kerrys-learning-lab/.github/.github/workflows/no-build.workflow.yml@support-check-repository-settings-action
+    uses: kerrys-learning-lab/.github/.github/workflows/no-build.workflow.yml@main
     secrets:
       actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
       actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}

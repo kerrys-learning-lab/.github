@@ -19,7 +19,7 @@ on:
 
 jobs:
   ref-check-repo-settings:
-    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@support-check-repository-settings-action
+    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@main
     secrets:
       actor_token: ${{ secrets.actor_token }}
   ref-bump-version:
