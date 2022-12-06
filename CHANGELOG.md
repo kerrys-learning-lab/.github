@@ -1,3 +1,9 @@
+## v1.1.2 (2022-12-06)
+
+### Fix
+
+- Support check repository settings action (#7)
+
 ## v1.1.1 (2022-09-17)
 
 ### Fix
