@@ -1,3 +1,9 @@
+## v1.1.4 (2022-12-07)
+
+### Fix
+
+- bump-version depends on check-repository-settings (#9)
+
 ## v1.1.3 (2022-12-06)
 
 ### Fix
