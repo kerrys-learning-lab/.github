@@ -24,6 +24,7 @@ jobs:
       actor_token: ${{ secrets.actor_token }}
   ref-bump-version:
     uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
+    needs: ref-check-repo-settings
     secrets:
       actor_name: ${{ secrets.actor_name }}
       actor_token: ${{ secrets.actor_token }}
