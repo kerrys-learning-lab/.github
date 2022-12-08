@@ -2,6 +2,12 @@ name: No-build workflow
 
 on:
   workflow_call:
+    inputs:
+      check_repo_settings_action_repository_ref:
+        description: "Git ref to use for check-repo-settings-action"
+        default: refs/heads/main
+        required: false
+        type: string
     secrets:
       actor_name:
         description: |
@@ -20,6 +26,8 @@ on:
 jobs:
   ref-check-repo-settings:
     uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@main
+    with:
+      repository_ref: ${{ inputs.check_repo_settings_action_repository_ref }}
     secrets:
       actor_token: ${{ secrets.actor_token }}
   ref-bump-version:

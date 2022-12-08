@@ -1,5 +1,11 @@
 on:
   workflow_call:
+    inputs:
+      repository_ref:
+        description: "Git ref to use for check-repo-settings-action"
+        default: refs/heads/main
+        required: false
+        type: string
     secrets:
       actor_token:
         description: |
@@ -21,7 +27,7 @@ jobs:
         with:
           repository: kerrys-learning-lab/check-repo-settings-action
           path: check-repo-settings-action
-          ref: refs/heads/main
+          ref: ${{ inputs.repository_ref }}
           token: ${{ secrets.actor_token }}
       - name: Check/assert repository settings
         uses: ./check-repo-settings-action
