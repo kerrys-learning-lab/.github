@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   ref-no-build-workflow:
-    uses: kerrys-learning-lab/.github/.github/workflows/no-build.workflow.yml@${{ github.ref }}
+    uses: .github/workflows/no-build.workflow.yml
     with:
       dot_github_repository_ref: ${{ github.ref }}
     secrets:
