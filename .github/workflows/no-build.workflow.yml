@@ -24,14 +24,21 @@ on:
         required: true
 
 jobs:
+  show-inputs:
+    runs-on: ubuntu-latest
+    name: "Verify repository settings"
+    steps:
+      - name: Show input
+        run: echo "${{ inputs.repository_ref }}"
+
   ref-check-repo-settings:
-    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@main
+    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@${{ github.ref }}
     with:
       repository_ref: ${{ inputs.check_repo_settings_action_repository_ref }}
     secrets:
       actor_token: ${{ secrets.actor_token }}
   ref-bump-version:
-    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
+    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@${{ github.ref }}
     needs: ref-check-repo-settings
     secrets:
       actor_name: ${{ secrets.actor_name }}
