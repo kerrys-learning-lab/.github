@@ -3,6 +3,11 @@ name: No-build workflow
 on:
   workflow_call:
     inputs:
+      dot_github_repository_ref:
+        description: "Git ref to use for .github repository"
+        default: refs/heads/main
+        required: false
+        type: string
       check_repo_settings_action_repository_ref:
         description: "Git ref to use for check-repo-settings-action"
         default: refs/heads/main
@@ -32,13 +37,13 @@ jobs:
         run: echo "${{ inputs.repository_ref }}"
 
   ref-check-repo-settings:
-    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@${{ github.ref }}
+    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@${{ inputs.dot_github_repository_ref }}
     with:
       repository_ref: ${{ inputs.check_repo_settings_action_repository_ref }}
     secrets:
       actor_token: ${{ secrets.actor_token }}
   ref-bump-version:
-    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@${{ github.ref }}
+    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@${{ inputs.dot_github_repository_ref }}
     needs: ref-check-repo-settings
     secrets:
       actor_name: ${{ secrets.actor_name }}
