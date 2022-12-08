@@ -19,16 +19,16 @@ on:
 
 jobs:
   ref-build-and-push-image:
-    uses: kerrys-learning-lab/.github/.github/workflows/.build-docker-image.yml@main
+    uses: kerrys-learning-lab/.github/.github/workflows/.build-docker-image.yml
     secrets:
       actor_name: ${{ secrets.actor_name }}
       actor_token: ${{ secrets.actor_token }}
   ref-check-repo-settings:
-    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@main
+    uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml
     secrets:
       actor_token: ${{ secrets.actor_token }}
   ref-bump-version:
-    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml@main
+    uses: kerrys-learning-lab/.github/.github/workflows/.bump-version.yml
     needs:
       - ref-build-and-push-image
       - ref-check-repo-settings
