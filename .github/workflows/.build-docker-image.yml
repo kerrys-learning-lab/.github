@@ -51,3 +51,18 @@ jobs:
           push: ${{ startsWith( github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[test ci]') }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: "${{ steps.meta.outputs.tags[0] }}"
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: ${{ startsWith( github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[test ci]') }}
+        with:
+          sarif_file: "trivy-results.sarif"
