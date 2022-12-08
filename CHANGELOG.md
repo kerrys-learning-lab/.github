@@ -1,3 +1,9 @@
+## v1.2.0 (2022-12-08)
+
+### Feat
+
+- Add Trivy scan to build-docker-image (#10)
+
 ## v1.1.4 (2022-12-07)
 
 ### Fix
