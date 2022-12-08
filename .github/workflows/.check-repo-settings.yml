@@ -22,6 +22,8 @@ jobs:
         with:
           fetch-depth: 0
           token: "${{ secrets.actor_token }}"
+      - name: Show input
+        run: echo "${{ inputs.repository_ref }}"
       - name: Pull custom check-repo-settings-action
         uses: actions/checkout@v3
         with:
