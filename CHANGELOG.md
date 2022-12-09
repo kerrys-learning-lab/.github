@@ -1,3 +1,9 @@
+## v1.2.1 (2022-12-09)
+
+### Fix
+
+- Use check-repo-settings-action from Marketplace (#11)
+
 ## v1.2.0 (2022-12-08)
 
 ### Feat
