@@ -4,6 +4,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   ref-no-build-workflow:
+    name: Call no-build workflow
     uses: ./.github/workflows/no-build.workflow.yml
     secrets:
       actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
