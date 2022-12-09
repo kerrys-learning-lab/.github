@@ -1,14 +1,18 @@
 name: No-build workflow
 
-on: [push, workflow_dispatch]
+on: push
 
 jobs:
-  ref-no-build-workflow:
-    name: Call no-build workflow
-    uses: ./.github/workflows/no-build.workflow.yml
-    with:
-      dot_github_repository_ref: ${{ github.ref }}
+  # Specialization of no-build.workflow, but uses "local" jobs from the
+  # current commit/ref
+  ref-check-repo-settings:
+    uses: ./.github/workflows/.check-repo-settings.yml
     secrets:
-      actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
-      actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
-      actor_email: ${{ secrets.KERRYS_LEARNING_LAB_EMAIL }}
+      actor_token: ${{ secrets.actor_token }}
+  ref-bump-version:
+    uses: ./.github/workflows/.bump-version.yml
+    needs: ref-check-repo-settings
+    secrets:
+      actor_name: ${{ secrets.actor_name }}
+      actor_token: ${{ secrets.actor_token }}
+      actor_email: ${{ secrets.actor_email }}
