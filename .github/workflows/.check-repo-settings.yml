@@ -23,6 +23,6 @@ jobs:
           fetch-depth: 0
           token: "${{ secrets.actor_token }}"
       - name: Check/assert repository settings
-        uses: kerrys-learning-lab/check-repo-settings-action@v1.0.1
+        uses: kerrys-learning-lab/check-repo-settings-action@v1
         with:
           github_token: ${{ secrets.actor_token }}
