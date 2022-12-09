@@ -1,11 +1,5 @@
 on:
   workflow_call:
-    inputs:
-      repository_ref:
-        description: "Git ref to use for check-repo-settings-action"
-        default: refs/heads/main
-        required: false
-        type: string
     secrets:
       actor_token:
         description: |
