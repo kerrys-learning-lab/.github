@@ -6,6 +6,8 @@ jobs:
   ref-no-build-workflow:
     name: Call no-build workflow
     uses: ./.github/workflows/no-build.workflow.yml
+    with:
+      dot_github_repository_ref: ${{ github.ref }}
     secrets:
       actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
       actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
