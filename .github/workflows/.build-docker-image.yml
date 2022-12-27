@@ -68,8 +68,7 @@ jobs:
           TRIVY_PASSWORD: ${{ secrets.actor_token }}
         with:
           image-ref: ${{ steps.parse_image_tag.outputs.image_tag }}
-          format: "template"
-          template: "@/contrib/sarif.tpl"
+          format: "serif"
           output: "trivy-results.sarif"
           severity: "CRITICAL,HIGH"
 
