@@ -34,11 +34,15 @@ jobs:
           username: ${{ secrets.actor_name }}
           password: ${{ secrets.actor_token }}
 
+      - name: Sanitize IMAGE_NAME
+        id: sanitize
+        run: echo "image_name=${IMAGE_NAME/\/\./\/}" >> $GITHUB_OUTPUT
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ steps.sanitize.outputs.image_name }}
           tags: |
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}
