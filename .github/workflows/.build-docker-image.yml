@@ -64,10 +64,10 @@ jobs:
         run: echo '${{ toJSON(steps.meta.outputs.json) }}'
 
       - name: Print outputs - 3
-        run: echo ${{ toJSON(steps.meta.outputs.json) }} || jq .tags
+        run: echo ${{ toJSON(steps.meta.outputs.json) }} | jq .tags
 
       - name: Print outputs - 4
-        run: echo ${{ toJSON(steps.meta.outputs.json) }} || jq .tags[0]
+        run: echo ${{ toJSON(steps.meta.outputs.json) }} | jq .tags[0]
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
