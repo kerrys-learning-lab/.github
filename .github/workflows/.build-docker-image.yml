@@ -67,7 +67,7 @@ jobs:
           TRIVY_USERNAME: ${{ secrets.actor_name }}
           TRIVY_PASSWORD: ${{ secrets.actor_token }}
         with:
-          image-ref: "${{ steps.parse_image_tag.outputs.image_tag }}"
+          image-ref: ${{ steps.parse_image_tag.outputs.image_tag }}
           format: "template"
           template: "@/contrib/sarif.tpl"
           output: "trivy-results.sarif"
