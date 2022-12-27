@@ -57,8 +57,17 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Print outputs
+      - name: Print outputs - 1
         run: echo '${{ toJSON(steps.meta.outputs) }}'
+
+      - name: Print outputs - 2
+        run: echo '${{ toJSON(steps.meta.outputs.json) }}'
+
+      - name: Print outputs - 3
+        run: echo '${{ toJSON(steps.meta.outputs.json.tags) }}'
+
+      - name: Print outputs - 4
+        run: echo '${{ toJSON(steps.meta.outputs.json.tags[0]) }}'
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
