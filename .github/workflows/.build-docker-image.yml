@@ -59,7 +59,7 @@ jobs:
 
       - name: Get built image tag
         id: parse_image_tag
-        run: echo "image_tag=$(${{ toJSON(steps.meta.outputs.json) }} | jq .tags[0])" >> $GITHUB_OUTPUT
+        run: echo "image_tag=$(echo ${{ toJSON(steps.meta.outputs.json) }} | jq .tags[0])" >> $GITHUB_OUTPUT
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
