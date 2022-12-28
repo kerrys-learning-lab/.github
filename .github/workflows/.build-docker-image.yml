@@ -55,7 +55,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           debug: true
-          token: ${{ secrets.actor_token }}
+          # token: ${{ secrets.actor_token }}
           languages: python
 
       - name: Build and push Docker image
@@ -89,4 +89,4 @@ jobs:
         if: ${{ startsWith( github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[test ci]') }}
         with:
           sarif_file: "trivy-results.sarif"
-          token: ${{ secrets.actor_token }}
+          # token: ${{ secrets.actor_token }}
