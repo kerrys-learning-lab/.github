@@ -1,0 +1,25 @@
+name: Docker image workflow
+
+on: push
+
+jobs:
+  # Specialization of docker-image.workflow, but uses "local" jobs from the
+  # current commit/ref
+  ref-build-and-push-image:
+    uses: ./.github/workflows/.build-docker-image.yml
+    secrets:
+      actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
+      actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+  ref-check-repo-settings:
+    uses: ./.github/workflows/.check-repo-settings.yml
+    secrets:
+      actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+  ref-bump-version:
+    uses: ./.github/workflows/.bump-version.yml
+    needs:
+      - ref-build-and-push-image
+      - ref-check-repo-settings
+    secrets:
+      actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
+      actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+      actor_email: ${{ secrets.KERRYS_LEARNING_LAB_EMAIL }}
