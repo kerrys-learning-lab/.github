@@ -1,3 +1,9 @@
+## v1.2.6 (2022-12-28)
+
+### Fix
+
+- Fix trivy scan permissions (#16)
+
 ## v1.2.5 (2022-12-19)
 
 ### Fix
