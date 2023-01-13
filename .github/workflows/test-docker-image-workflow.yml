@@ -14,12 +14,14 @@ jobs:
     uses: ./.github/workflows/.check-repo-settings.yml
     secrets:
       actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
-  ref-bump-version:
-    uses: ./.github/workflows/.bump-version.yml
-    needs:
-      - ref-build-and-push-image
-      - ref-check-repo-settings
-    secrets:
-      actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
-      actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
-      actor_email: ${{ secrets.KERRYS_LEARNING_LAB_EMAIL }}
+  # NOTE: Don't bump version here (in test-docker-image-workflow.yml), as it is
+  #       already performed by workflow.yml
+  # ref-bump-version:
+  #   uses: ./.github/workflows/.bump-version.yml
+  #   needs:
+  #     - ref-build-and-push-image
+  #     - ref-check-repo-settings
+  #   secrets:
+  #     actor_name: ${{ secrets.KERRYS_LEARNING_LAB_ACTOR }}
+  #     actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+  #     actor_email: ${{ secrets.KERRYS_LEARNING_LAB_EMAIL }}
