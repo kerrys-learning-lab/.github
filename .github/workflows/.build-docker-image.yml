@@ -81,12 +81,11 @@ jobs:
           output: "trivy-results.sarif"
           severity: "CRITICAL,HIGH"
 
-      - name: List directory contents
-        run: ls -alF
-
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         if: ${{ startsWith( github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, '[test ci]') }}
         with:
           sarif_file: "trivy-results.sarif"
+          # NOTE: The 'specically-generated token doesn't work, but the default
+          #       token does.  Needs further investigation.
           # token: ${{ secrets.actor_token }}
