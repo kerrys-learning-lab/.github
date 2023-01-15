@@ -1,3 +1,9 @@
+## v1.2.9 (2023-01-15)
+
+### Fix
+
+- Extend timeout for Trivy scan [test ci] (#19)
+
 ## v1.2.8 (2023-01-13)
 
 ### Fix
