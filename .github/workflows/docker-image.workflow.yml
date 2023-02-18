@@ -13,6 +13,11 @@ on:
         type: boolean
         default: false
         required: false
+      image_cache:
+        description: If true, export image build cache layers to the the Github Actions Cache API 
+        type: boolean
+        default: false
+        required: false
     secrets:
       actor_name:
         description: |
@@ -37,6 +42,7 @@ jobs:
     with:
       target: ${{ inputs.target }}
       arm64: ${{ inputs.arm64 }}
+      image_cache: ${{ inputs.image_cache }}
   ref-check-repo-settings:
     uses: kerrys-learning-lab/.github/.github/workflows/.check-repo-settings.yml@main
     secrets:
