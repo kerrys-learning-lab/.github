@@ -1,3 +1,9 @@
+## v1.5.0 (2023-02-18)
+
+### Feat
+
+- Optionally cache docker build layers (#24)
+
 ## v1.4.0 (2023-02-17)
 
 ### Feat
