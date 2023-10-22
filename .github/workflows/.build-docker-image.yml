@@ -96,6 +96,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: "${{ inputs.arm64 && 'linux/arm64' || 'linux/amd64' }}"
-          cache-from: "${{ inputs.image_cache && 'type=gha' || '' }}"
-          cache-to: "${{ inputs.image_cache && 'type=gha,mode=max' || '' }}"
-
