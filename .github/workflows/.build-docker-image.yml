@@ -1,8 +1,13 @@
 on:
   workflow_call:
     inputs:
+      target:
+        description: Sets the target stage to build
+        type: string
+        default: ""
+        required: false
       arm64:
-        description: If true, build for the ARM architecture
+        description: If true, build for ARM architecture
         type: boolean
         default: false
         required: false
@@ -81,4 +86,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: "${{ inputs.arm64 && 'linux/arm64' || 'linux/amd64' }}"
-

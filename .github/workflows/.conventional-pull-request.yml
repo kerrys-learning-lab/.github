@@ -1,0 +1,23 @@
+name: conventional-pull-request
+on:
+  workflow_call:
+    secrets:
+      actor_token:
+        description: |
+          GITHUB_TOKEN or PAT authorized to make changes to the repository
+        required: true
+jobs:
+  lint-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: CondeNast/conventional-pull-request-action@v0.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # if the PR contains a single commit, fail if the commit message and
+          # the PR title do not match
+          commitTitleMatch: "true" # default: 'true'
+          # if you squash merge PRs and enabled "Default to PR title for squash
+          # merge commits", you can disable all linting of commits
+          ignoreCommits: "false" # default: 'false'
