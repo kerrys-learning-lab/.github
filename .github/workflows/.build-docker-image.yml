@@ -11,16 +11,6 @@ on:
         type: boolean
         default: false
         required: false
-      image_cache:
-        description: If true, export image build cache layers to the the Github Actions Cache API
-        type: boolean
-        default: false
-        required: false
-      image_cache:
-        description: If true, export image build cache layers to the the Github Actions Cache API 
-        type: boolean
-        default: false
-        required: false
     secrets:
       actor_name:
         description: |
