@@ -1,3 +1,9 @@
+## v1.6.0 (2023-10-22)
+
+### Feat
+
+- Add docker build target, lint PR titles (#25)
+
 ## v1.5.0 (2023-02-18)
 
 ### Feat
