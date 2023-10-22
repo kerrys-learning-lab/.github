@@ -3,6 +3,11 @@ name: Docker image workflow
 on:
   workflow_call:
     inputs:
+      target:
+        description: Sets the target stage to build
+        type: string
+        default: ""
+        required: false
       arm64:
         description: If true, build for the ARM architecture
         type: boolean
@@ -35,6 +40,7 @@ jobs:
       actor_name: ${{ secrets.actor_name }}
       actor_token: ${{ secrets.actor_token }}
     with:
+      target: ${{ inputs.target }}
       arm64: ${{ inputs.arm64 }}
       image_cache: ${{ inputs.image_cache }}
   ref-check-repo-settings:

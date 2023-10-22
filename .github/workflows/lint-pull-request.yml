@@ -1,0 +1,16 @@
+name: Enforce conventional-commit PR titles
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  ref-conventional-pull-request:
+    uses: ./.github/workflows/.conventional-pull-request.yml
+    secrets:
+      actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}

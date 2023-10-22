@@ -1,8 +1,18 @@
 on:
   workflow_call:
     inputs:
+      target:
+        description: Sets the target stage to build
+        type: string
+        default: ""
+        required: false
       arm64:
-        description: If true, build for the ARM architecture
+        description: If true, build for ARM architecture
+        type: boolean
+        default: false
+        required: false
+      image_cache:
+        description: If true, export image build cache layers to the the Github Actions Cache API
         type: boolean
         default: false
         required: false
