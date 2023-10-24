@@ -1,3 +1,4 @@
+name: Docker image workflow
 on:
   workflow_call:
     inputs:
@@ -8,16 +9,6 @@ on:
         required: false
       arm64:
         description: If true, build for ARM architecture
-        type: boolean
-        default: false
-        required: false
-      image_cache:
-        description: If true, export image build cache layers to the the Github Actions Cache API
-        type: boolean
-        default: false
-        required: false
-      image_cache:
-        description: If true, export image build cache layers to the the Github Actions Cache API 
         type: boolean
         default: false
         required: false
