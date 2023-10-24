@@ -22,6 +22,10 @@ on:
 
 jobs:
   analyze:
+    # Prevents multiple runs on main branch... there's no value in running
+    # a pipeline on commit xyz on master when commit xyz will also be built
+    # for vX.Y.Z
+    if: "!(startsWith(github.event.head_commit.message, 'bump:') && github.ref_name == 'main')"
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
