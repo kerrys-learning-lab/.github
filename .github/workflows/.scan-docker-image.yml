@@ -18,6 +18,10 @@ env:
 
 jobs:
   scan-image:
+    # Prevents multiple runs on main branch... there's no value in running
+    # a pipeline on commit xyz on master when commit xyz will also be built
+    # for vX.Y.Z
+    if: "!(startsWith(github.event.head_commit.message, 'bump:') && github.ref_name == 'main')"
     runs-on: ubuntu-22.04
     permissions:
       packages: read
