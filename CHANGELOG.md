@@ -1,3 +1,9 @@
+## v1.6.2 (2023-10-24)
+
+### Fix
+
+- Disable duplicate builds (#27)
+
 ## v1.6.1 (2023-10-24)
 
 ### Fix
