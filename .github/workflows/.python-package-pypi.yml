@@ -1,0 +1,46 @@
+name: Build Python package and publish to PyPi
+
+on:
+  workflow_call:
+    inputs:
+      publish:
+        description: If true, publishes to PyPI package repository
+        type: boolean
+        default: true
+        required: false
+    secrets:
+      actor_token:
+        description: |
+          GITHUB_TOKEN or PAT authorized to make changes to the repository
+        required: true
+
+jobs:
+
+  python-package-pypi:
+    runs-on: ubuntu-latest
+    name: Build a python package (using Poetry) and push to PyPi
+    permissions:
+      id-token: write
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Setup poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: '1.4.2'
+
+      - name: Build python wheel
+        run: poetry build
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: inputs.publish
+        with:
+          packages-dir: dist
