@@ -17,4 +17,4 @@ Where `type` is one of:
 | perf            | a commit which addresses application performance |
 | test            | a commit which fixes or adds tests               |
 
-[Examples](https://www.conventionalcommits.org/en/v1.0.0/#examples)
+See [Examples](https://www.conventionalcommits.org/en/v1.0.0/#examples)
