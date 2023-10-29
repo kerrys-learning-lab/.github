@@ -1,0 +1,26 @@
+name: OpenAPI Workflow
+
+on:
+  - workflow_call
+
+jobs:
+  prerequisites:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # version_regex courtesy of https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+      - name: Get tag
+        id: tag
+        run: |
+          version_regex="^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+          TAG=${GITHUB_REF#refs/*/}
+          if [[ ! ${TAG} =~ ${version_regex} ]]; then
+            TAG=0.0.$(date +%s)
+          fi
+          echo "tag=${TAG}" | tee --append ${GITHUB_OUTPUT}
