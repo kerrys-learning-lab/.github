@@ -19,7 +19,7 @@ jobs:
         id: tag
         run: |
           version_regex="^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
-          TAG=${GITHUB_REF#refs/*/}
+          TAG=$(echo $GITHUB_REF | cut -d / -f 3)
           if [[ ! ${TAG} =~ ${version_regex} ]]; then
             TAG=0.0.$(date +%s)
           fi
