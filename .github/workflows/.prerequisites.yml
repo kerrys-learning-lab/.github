@@ -1,7 +1,11 @@
-name: OpenAPI Workflow
+name: Prerequisites Workflow
 
 on:
-  - workflow_call
+  workflow_call:
+    outputs:
+      tag:
+        description: The calculated tag.  Will be either semver or <branch>-<datetime>
+        value: ${{ jobs.prerequisites.outputs.tag }}
 
 jobs:
   prerequisites:
