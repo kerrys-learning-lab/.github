@@ -9,6 +9,10 @@ jobs:
     uses: ./.github/workflows/.check-repo-settings.yml
     secrets:
       actor_token: ${{ secrets.KERRYS_LEARNING_LAB_TOKEN }}
+
+  ref-prerequisites:
+    uses: ./.github/workflows/.prerequisites.yml
+
   ref-bump-version:
     uses: ./.github/workflows/.bump-version.yml
     needs: ref-check-repo-settings
