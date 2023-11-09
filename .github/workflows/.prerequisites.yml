@@ -20,7 +20,7 @@ jobs:
         run: |
           version_regex="^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
           TAG=${GITHUB_REF_NAME}
-          if [[ ! ${TAG} =~ ${version_regex} ]]; then
+          if ! [[ ${TAG} =~ ${version_regex} ]]; then
             TAG=${TAG}-$(date +%Y-%m-%dT%H:%M:%S)
           fi
           echo "tag=${TAG}" | tee --append ${GITHUB_OUTPUT}
